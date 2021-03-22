@@ -9,8 +9,9 @@ contract DeElect {
     uint256[] public voteCounts; // Count of Votes of Candidates
     address public electionCommision;
 
-    uint256 voterApprovalPeriod;
-    uint256 votingPeriod;
+    uint256 public voterApprovalPeriod;
+    uint256 public delegationPeriod;
+    uint256 public votingPeriod;
 
 
 
@@ -27,13 +28,19 @@ contract DeElect {
     }
     // Voting Period Check
     modifier votingTime {
-        require(block.timestamp > voterApprovalPeriod, "Vote casting not started yet.");
+        require(block.timestamp > delegationPeriod, "Vote casting not started yet");
         require(block.timestamp <= votingPeriod, "Vote casting ended");
         _;
     }
     // Voter Approval Period Check
     modifier approvalTime {
-        require(block.timestamp <= voterApprovalPeriod);
+        require(block.timestamp <= voterApprovalPeriod, "Strength Cannot Be Approved Anymore");
+        _;
+    }
+    // Delegation Period Check
+    modifier delegationTime {
+        require(block.timestamp > voterApprovalPeriod, "Strength Delegation Period not started yet");
+        require(block.timestamp <= delegationPeriod, "Strength Delegation Period Ended");
         _;
     }
 
@@ -42,19 +49,24 @@ contract DeElect {
     constructor () public {
         voteCounts = new uint256[](numberOfCandidates);
         electionCommision = msg.sender;
-        voterStrengths[electionCommision] = numberOfCandidates; // Initially EC will have all the voting strengths, which will be distributed among voters equally
+        voterStrengths[electionCommision] = numberOfVoters; // Initially EC will have all the voting strengths, which will be distributed among voters equally
 
-        voterApprovalPeriod = block.timestamp + 15 minutes; // In this period, EC will be able to distribute voting strengths to Voters
-        votingPeriod = voterApprovalPeriod + 10 days; // Casting votes will be accepted during this period 
+        voterApprovalPeriod = block.timestamp + 10; // In this period, EC will be able to distribute voting strengths to Voters
+        delegationPeriod = voterApprovalPeriod + 20; // In this period, Voters will be able to delegate steir strengths to others
+        votingPeriod = delegationPeriod + 10; // Casting votes will be accepted during this period 
     }
 
 
 
     // EC Approves Voting strength to voters
-    function approveStrength(address _voter) external EC approvalTime {
+    function approveStrength(address _voter) external EC approvalTime returns(bool) {
         require(voterStrengths[_voter] != 1, "Already approved Strength");
+        require(_voter != electionCommision);
+        require(voterStrengths[electionCommision] >= 1, "Strength Approval Completed");
 
         voterStrengths[_voter] = 1;
+        voterStrengths[electionCommision] -= 1;
+        return true;
     }
 
     // Cast your vote
@@ -67,8 +79,9 @@ contract DeElect {
     }
 
     // Delegate your strength to someone you want to cast vote for you
-    function delegateStrength(address _voter) external voter votingTime {
+    function delegateStrength(address _voter) external voter delegationTime {
         require(_voter != electionCommision, "Can't delegate strength to EC");
+        require(voterStrengths[_voter] >= 1, "Delegation to Zero-Strength Account is restricted");
 
         voterStrengths[_voter] += voterStrengths[msg.sender];
         voterStrengths[msg.sender] = 0;
