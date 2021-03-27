@@ -6,12 +6,18 @@ contract DeElect {
     uint256 public numberOfVoters = 5; // Total number of voters
 
     mapping(address => uint256) public voterStrengths; // Strength of Voter 
-    uint256[] public voteCounts; // Count of Votes of Candidates
+    uint256[] voteCounts; // Count of Votes of Candidates
     address public electionCommision;
 
+    // Time Periods
     uint256 public voterApprovalPeriod;
     uint256 public delegationPeriod;
     uint256 public votingPeriod;
+
+    // Events
+    event CastVote(address indexed _voter, uint256 _candidate, uint256 _strength);
+    event DelegateVote(address indexed _delegator, address indexed _delegatedTo, uint256 _strength);
+    event ApproveStrength(address indexed _approvedTo);
 
 
 
@@ -51,12 +57,17 @@ contract DeElect {
         electionCommision = msg.sender;
         voterStrengths[electionCommision] = numberOfVoters; // Initially EC will have all the voting strengths, which will be distributed among voters equally
 
-        voterApprovalPeriod = block.timestamp + 10; // In this period, EC will be able to distribute voting strengths to Voters
-        delegationPeriod = voterApprovalPeriod + 20; // In this period, Voters will be able to delegate steir strengths to others
-        votingPeriod = delegationPeriod + 10; // Casting votes will be accepted during this period 
+        voterApprovalPeriod = block.timestamp + 5 minutes; // In this period, EC will be able to distribute voting strengths to Voters
+        delegationPeriod = voterApprovalPeriod + 0 minutes; // In this period, Voters will be able to delegate steir strengths to others
+        votingPeriod = delegationPeriod + 5 minutes; // Casting votes will be accepted during this period 
     }
 
 
+    // Get Vote Counts of Candidates
+    function getVoteCounts(uint256 _candidate) public view returns(uint256) {
+        require(_candidate < numberOfCandidates, "Not a candidate");
+        return voteCounts[_candidate];
+    }
 
     // EC Approves Voting strength to voters
     function approveStrength(address _voter) external EC approvalTime returns(bool) {
@@ -66,6 +77,8 @@ contract DeElect {
 
         voterStrengths[_voter] = 1;
         voterStrengths[electionCommision] -= 1;
+
+        emit ApproveStrength(_voter);
         return true;
     }
 
@@ -74,22 +87,28 @@ contract DeElect {
     function castVote(uint256 _candidate) external voter votingTime {
         require(0 <= _candidate && _candidate < numberOfCandidates, "Not a candidate");
 
-        voteCounts[_candidate] += voterStrengths[msg.sender];
+        uint256 _strength = voterStrengths[msg.sender];
+        voteCounts[_candidate] += _strength;
         voterStrengths[msg.sender] = 0;
+
+        emit CastVote(msg.sender, _candidate, _strength);
     }
 
     // Delegate your strength to someone you want to cast vote for you
     function delegateStrength(address _voter) external voter delegationTime {
         require(_voter != electionCommision, "Can't delegate strength to EC");
         require(voterStrengths[_voter] >= 1, "Delegation to Zero-Strength Account is restricted");
-
-        voterStrengths[_voter] += voterStrengths[msg.sender];
+        require(_voter != msg.sender, "Cannot Delegate To Self");
+        
+        uint256 _strength = voterStrengths[msg.sender];
+        voterStrengths[_voter] += _strength;
         voterStrengths[msg.sender] = 0;
+
+        emit DelegateVote(msg.sender, _voter, _strength);
     }
 
     // Who's the winner
     function winnerWho() public view returns(uint256) {
-        require(block.timestamp > votingPeriod, "Winner not finalised yet");
 
         uint256 winner;
         for(uint256 i=0; i<numberOfCandidates; i++) {

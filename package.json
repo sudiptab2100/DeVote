@@ -1,0 +1,22 @@
+{
+  "name": "decentralised-election",
+  "version": "1.0.0",
+  "description": "Decentralised Election System",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "lite-server"
+  },
+  "author": "Sudipta",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  },
+  "dependencies": {
+    "@truffle/contract": "^4.3.10",
+    "truffle-hdwallet-provider": "^1.0.17",
+    "web3": "^1.2.9"
+  }
+}

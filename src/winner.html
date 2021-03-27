@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The King</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <style>
+        hr.style13 {
+            border: 0; 
+            height: 1px; 
+            background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container text-center" style="width: 650px;" id="content" style="display: none;">
+        <br>
+        <h1>The King is Here</h1>
+        <br>
+        <div class="card text-center" style="width: 650px;">
+            <img class="card-img-top" src="" alt="" id="winnerPic">
+            <div class="card-body">
+              <h5 class="card-title" id="winnerName"></h5>
+              <p class="card-text" style="font-size: small;"><b>Votes : </b><span id="winnerCount"></span></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/truffle-contract.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/winner.js"></script>
+</body>
+</html>
