@@ -57,9 +57,9 @@ contract DeElect {
         electionCommision = msg.sender;
         voterStrengths[electionCommision] = numberOfVoters; // Initially EC will have all the voting strengths, which will be distributed among voters equally
 
-        voterApprovalPeriod = block.timestamp + 5 minutes; // In this period, EC will be able to distribute voting strengths to Voters
-        delegationPeriod = voterApprovalPeriod + 0 minutes; // In this period, Voters will be able to delegate steir strengths to others
-        votingPeriod = delegationPeriod + 5 minutes; // Casting votes will be accepted during this period 
+        voterApprovalPeriod = block.timestamp + 1 days; // In this period, EC will be able to distribute voting strengths to Voters
+        delegationPeriod = voterApprovalPeriod + 1 days; // In this period, Voters will be able to delegate steir strengths to others
+        votingPeriod = delegationPeriod + 200 days; // Casting votes will be accepted during this period 
     }
 
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote For Life</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <style>
+        hr.style13 {
+            border: 0; 
+            height: 1px; 
+            background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="width: 650px;">
+        <form onsubmit="App.result(); return false;" id="result" class="text-center" role="form" style="display: none;">
+            <br>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary btn-lg">Result</button>
+        </form>
+        <div class="well text-center" id="content">
+            <br>
+            <h2 class="text-center">Vote For Your Hero Wisely</h2>
+            <hr class="style13">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- <img src="shinchan2.jpg" alt="Shinchan" style='height: 100%; width: 100%; object-fit: contain'> -->
+                    <div class="card" style="width: 15rem;">
+                        <img class="card-img-top" src="shinchan.jpg" alt="Shinchan">
+                        <div class="card-body">
+                          <h5 class="card-title">Shinchan</h5>
+                          <p class="card-text" style="font-size: small;"><b>Votes : </b><span id="shinchanCount">0</span></p>
+                          <button type="button" class="btn btn-primary" id="vote1" onclick="App.castVote(0);" disabled>Vote</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- <img src="Doremon2.jpg" alt="Doremon" style='height: 100%; width: 100%; object-fit: contain'> -->
+                    <div class="card" style="width: 15rem;">
+                        <img class="card-img-top" src="Doremon.jpg" alt="Doremon">
+                        <div class="card-body">
+                          <h5 class="card-title">Doremon</h5>
+                          <p class="card-text" style="font-size: small;"><b>Votes : </b><span id="doremonCount">0</span></p>
+                          <button type="button" class="btn btn-primary vote2" id="vote2" onclick="App.castVote(1);" disabled>Vote</button>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <hr class="style13">
+            <form onsubmit="App.delegateStrength(); return false;" role="form">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-lg" id="address" name="number">
+                        </input>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary btn-lg" id="delegateButton" disabled>Delegate</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <hr class="style13">
+            <div class="alert alert-success" role="alert" id="connected" style="display: none;"><b>Strength :</b> <span id="strength">0</span></div>
+            <div class="alert alert-danger" role="alert" id="disconnected"><b>Not Connected to Web3 </b></div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/truffle-contract.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strength Approval</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <style>
+        hr.style13 {
+            border: 0; 
+            height: 1px; 
+            background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center" style="width: 650px;">
+        <br>
+        <div id="notEC">
+            <h1>You Are Not Allowed Here</h1>
+        </div>
+        <div id="isEC" style="display: none;">
+            <br>
+            <br>
+            <br>
+            <form onsubmit="App.approveStrength(); return false;" role="form">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-lg" id="address" name="number">
+                        </input>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary btn-lg">Approve Strength</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <hr class="style13">
+            <div class="alert alert-success" role="alert" id="connected"><b>Strengths Left :</b> <span id="strength">0</span></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/truffle-contract.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/strength.js"></script>
+</body>
+</html>
