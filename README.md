@@ -1,8 +1,9 @@
 # DeVote - Decentralized Voting System
 
 
-## Goto : [Vote For Life](https://sudiptab2100.github.io/DeVote/)
-
+## Goto : 
+- [Vote For Life](https://sudiptab2100.github.io/DeVote/)
+- [Ropsten Etherscan](https://ropsten.etherscan.io/address/0x1A3e0181cEE580FDC76339136496fdae810ABE26)
 
 ## How It Works ?
 - Deployer Account is the **Election Commisioner(EC)**.
